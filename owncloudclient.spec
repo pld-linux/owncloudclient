@@ -7,7 +7,7 @@ License:	GPL-2.0+
 Group:		X11/Applications
 URL:		https://www.owncloud.com
 Source0:	https://download.owncloud.com/desktop/stable/%{name}-%{version}.tar.xz
-# Source0-md5:  ee08ccedccd4c49f1464957146e14d26
+# Source0-md5:	63a971158201a8dffe96a02c54b86819
 Source1:	owncloud.sh
 Source2:	owncloudcmd.sh
 BuildRequires:	cmake >= 2.8.11
