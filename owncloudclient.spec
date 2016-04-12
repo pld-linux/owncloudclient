@@ -12,7 +12,7 @@
 Summary:	The ownCloud client
 Name:		owncloudclient
 Version:	2.1.1
-Release:	0.12
+Release:	0.13
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	https://download.owncloud.com/desktop/stable/%{name}-%{version}.tar.xz
@@ -36,15 +36,19 @@ BuildRequires:	python-Sphinx
 BuildRequires:	python-modules
 BuildRequires:	qt4-linguist
 BuildRequires:	rpm-pythonprov
+BuildRequires:	rpmbuild(macros) >= 1.596
 BuildRequires:	sphinx-pdg
 BuildRequires:	sqlite3-devel
 BuildRequires:	tar >= 1:1.22
+BuildRequires:	xz
 %if %{with doc}
 BuildRequires:	texlive-latex-ams
 %endif
-BuildRequires:	xz
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	Qt5Gui-platform-xcb
+Requires:	desktop-file-utils
+Requires:	gtk-update-icon-cache
+Requires:	hicolor-icon-theme
 Suggests:	%{name}-nautilus
 Suggests:	%{name}-nemo
 Obsoletes:	mirall < 1.8
@@ -141,12 +145,12 @@ rm $RPM_BUILD_ROOT%{_docdir}/%{name}/unthemed/.buildinfo
 rm -rf $RPM_BUILD_ROOT
 
 %post
-%update_icon_cache_post hicolor
+%update_desktop_database
+%update_icon_cache hicolor
 
 %postun
-if [ $1 -eq 0 ] ; then
-	%update_icon_cache_post hicolor
-fi
+%update_desktop_database
+%update_icon_cache hicolor
 
 %post	libs -p /sbin/ldconfig
 %postun	libs -p /sbin/ldconfig
