@@ -11,6 +11,7 @@
 %undefine	with_doc
 %endif
 
+%define		qtver	5.4
 Summary:	The ownCloud client
 Name:		owncloudclient
 Version:	2.1.1
@@ -20,19 +21,21 @@ Group:		X11/Applications
 Source0:	https://download.owncloud.com/desktop/stable/%{name}-%{version}.tar.xz
 # Source0-md5:	63a971158201a8dffe96a02c54b86819
 URL:		https://www.owncloud.com/
-BuildRequires:	QtCore-devel
-BuildRequires:	QtDBus-devel
-BuildRequires:	QtGui-devel
-BuildRequires:	QtKeychain-devel
-BuildRequires:	QtNetwork-devel
-BuildRequires:	QtSql-devel
-BuildRequires:	QtWebKit-devel
-BuildRequires:	QtXmlPatterns-devel
+BuildRequires:	Qt5Concurrent-devel
+BuildRequires:	Qt5Core-devel >= %{qtver}
+BuildRequires:	Qt5DBus-devel >= %{qtver}
+BuildRequires:	Qt5Gui-devel >= %{qtver}
+BuildRequires:	Qt5Keychain-devel
+BuildRequires:	Qt5Network-devel >= %{qtver}
+BuildRequires:	Qt5Sql-devel >= %{qtver}
+BuildRequires:	Qt5WebKit-devel >= %{qtver}
+BuildRequires:	Qt5Xml-devel >= %{qtver}
+BuildRequires:	Qt5XmlPatterns-devel >= %{qtver}
 BuildRequires:	cmake >= 2.8.11
 BuildRequires:	libstdc++-devel
 BuildRequires:	openssl-devel >= 1.0.0
 BuildRequires:	pkgconfig
-BuildRequires:	qt4-linguist
+BuildRequires:	qt5-linguist >= %{qtver}
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.596
 BuildRequires:	sqlite3-devel >= 3.8.0
@@ -132,9 +135,10 @@ Nautilus file manager.
 install -d build
 cd build
 %cmake \
-	-DQTKEYCHAIN_INCLUDE_DIR=/usr/include/qtkeychain \
-	-DQTKEYCHAIN_LIBRARY=/usr/%{_lib}/libqtkeychain.so \
-	-DQT_LRELEASE_EXECUTABLE=/usr/bin/lrelease-qt4 \
+	-DQTKEYCHAIN_INCLUDE_DIR=/usr/include/qt5keychain \
+	-DQTKEYCHAIN_LIBRARY=/usr/%{_lib}/libqt5keychain.so \
+	-DQT_LRELEASE_EXECUTABLE=/usr/bin/lrelease-qt5 \
+	-DBUILD_WITH_QT4=NO \
 %if %{with doc}
 	-DSPHINX_EXECUTABLE=/usr/bin/sphinx-build-2 \
 	-DPDFLATEX_EXECUTABLE=/usr/bin/pdflatex \
