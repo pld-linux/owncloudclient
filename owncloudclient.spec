@@ -2,7 +2,7 @@
 Summary:	The ownCloud client
 Name:		owncloudclient
 Version:	2.1.1
-Release:	0.3
+Release:	0.4
 License:	GPL-2.0+
 Group:		X11/Applications
 URL:		https://www.owncloud.com
@@ -19,6 +19,8 @@ BuildRequires:	python-Sphinx
 BuildRequires:	sphinx-pdg
 BuildRequires:	texlive-latex-ams
 BuildRequires:	QtKeychain-devel
+Requires:	mirall-libs
+Requires:	Qt5Gui-platform-xcb
 Suggests:	%{name}-nautilus
 Suggests:	%{name}-nemo
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -100,7 +102,8 @@ fi
 %{_desktopdir}/owncloud.desktop
 %{_iconsdir}/*/*/apps/*.png
 %{_datadir}/owncloud
-%{_libdir}/libowncloudsync.so.*
+# conflicts mirall-libs:
+#%{_libdir}/libowncloudsync.so.*
 %{_libdir}/owncloud/libocsync.so.*
 %dir %{_libdir}/owncloud
 %{_datadir}/nautilus-python/extensions/syncstate.py*
