@@ -146,16 +146,17 @@ fi
 %files
 %defattr(644,root,root,755)
 %doc README.md COPYING
-%doc %{_docdir}/%{name}
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/ownCloud/*
 %attr(755,root,root) %{_bindir}/owncloud
 %attr(755,root,root) %{_bindir}/owncloudcmd
 %{_desktopdir}/owncloud.desktop
 %{_iconsdir}/*/*/apps/*.png
 %{_datadir}/owncloud
-%{_libdir}/owncloud/libocsync.so.*
 %dir %{_libdir}/owncloud
+%if %{with doc}
+%doc %{_docdir}/%{name}
 %{_mandir}/man1/owncloud*
+%endif
 %endif
 
 %files libs
