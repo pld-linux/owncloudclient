@@ -12,7 +12,7 @@
 Summary:	The ownCloud client
 Name:		owncloudclient
 Version:	2.1.1
-Release:	0.10
+Release:	0.11
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	https://download.owncloud.com/desktop/stable/%{name}-%{version}.tar.xz
@@ -154,6 +154,7 @@ fi
 %files
 %defattr(644,root,root,755)
 %doc README.md COPYING
+%dir %{_sysconfdir}/ownCloud
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/ownCloud/*
 %attr(755,root,root) %{_bindir}/owncloud
 %attr(755,root,root) %{_bindir}/owncloudcmd
