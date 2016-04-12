@@ -96,22 +96,23 @@ fi
 %defattr(644,root,root,755)
 %doc README.md COPYING
 %doc %{_docdir}/%{name}
+%config %{_sysconfdir}/ownCloud
 %attr(755,root,root) %{_bindir}/owncloud
 %attr(755,root,root) %{_bindir}/owncloudcmd
 %{_desktopdir}/owncloud.desktop
 %{_iconsdir}/*/*/apps/*.png
-#%{_iconsdir}/hicolor
-#%config %{_sysconfdir}/ownCloud
 #%{_datadir}/owncloud
 %{_libdir}/libowncloudsync.so.*
 %{_libdir}/owncloud/libocsync.so.*
-#%dir %{_libdir}/owncloud
-#%{_libdir}/libowncloudsync.so
-#%{_libdir}/owncloud/libocsync.so
-#%{_includedir}/owncloudsync/
+%dir %{_libdir}/owncloud
 %{_datadir}/nautilus-python/extensions/syncstate.py*
 %{_datadir}/nemo-python/extensions/syncstate.py*
 %{_mandir}/man1/owncloud*
+
+### Make separate devel package
+#%{_libdir}/libowncloudsync.so
+#%{_libdir}/owncloud/libocsync.so
+#%{_includedir}/owncloudsync/
 
 %clean
 rm -rf $RPM_BUILD_ROOT
