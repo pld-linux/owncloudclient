@@ -1,20 +1,20 @@
-# TODO
-# - kf5 >= 5.16
 #
 # Conditional build:
 %bcond_without	nautilus	# build Nautilus extension
+%bcond_with	dolphin		# build dolphin extension
 %bcond_without	doc		# build docs
 %bcond_without	gui		# build only libraries
 
 %if %{without gui}
 %undefine	with_nautilus
+%undefine	with_dolphin
 %undefine	with_doc
 %endif
 
 Summary:	The ownCloud client
 Name:		owncloudclient
 Version:	2.1.1
-Release:	0.15
+Release:	0.16
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	https://download.owncloud.com/desktop/stable/%{name}-%{version}.tar.xz
@@ -29,8 +29,6 @@ BuildRequires:	QtSql-devel
 BuildRequires:	QtWebKit-devel
 BuildRequires:	QtXmlPatterns-devel
 BuildRequires:	cmake >= 2.8.11
-BuildRequires:	kf5-kconfig-devel
-BuildRequires:	kf5-ki18n-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	openssl-devel >= 1.0.0
 BuildRequires:	pkgconfig
@@ -40,6 +38,13 @@ BuildRequires:	rpmbuild(macros) >= 1.596
 BuildRequires:	sqlite3-devel >= 3.8.0
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
+%if %{with dolphin}
+BuildRequires:	kf5-attica-devel >= 5.16
+BuildRequires:	kf5-extra-cmake-modules >= 5.16
+BuildRequires:	kf5-kconfig-devel >= 5.16
+BuildRequires:	kf5-ki18n-devel >= 5.16
+BuildRequires:	kf5-kio-devel >= 5.16
+%endif
 %if %{with doc}
 BuildRequires:	doxygen
 BuildRequires:	sphinx-pdg-2
@@ -139,6 +144,9 @@ cd build
 	-DWITH_DOC=NO \
 	-DSPHINX_FOUND=NO \
 	-DDOXYGEN_FOUND=NO \
+%endif
+%if %{without dolphin}
+	-DKF5_FOUND=NO \
 %endif
 	%{!?with_gui:-DBUILD_LIBRARIES_ONLY=ON} \
 	..
