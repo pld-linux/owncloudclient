@@ -41,9 +41,10 @@ BuildRequires:	rpmbuild(macros) >= 1.596
 BuildRequires:	sqlite3-devel >= 3.8.0
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
+BuildRequires:	zlib-devel
 %if %{with dolphin}
 BuildRequires:	kf5-attica-devel >= 5.16
-BuildRequires:	kf5-extra-cmake-modules >= 5.16
+BuildRequires:	kf5-extra-cmake-modules >= 1.2.0
 BuildRequires:	kf5-kconfig-devel >= 5.16
 BuildRequires:	kf5-ki18n-devel >= 5.16
 BuildRequires:	kf5-kio-devel >= 5.16
@@ -146,8 +147,9 @@ cd build
 	-DCMAKE_INSTALL_DOCDIR=%{_docdir}/%{name} \
 %else
 	-DWITH_DOC=NO \
-	-DSPHINX_FOUND=NO \
-	-DDOXYGEN_FOUND=NO \
+	-DCMAKE_DISABLE_FIND_PACKAGE_Doxygen=TRUE \
+	-DCMAKE_DISABLE_FIND_PACKAGE_PdfLatex=TRUE \
+	-DCMAKE_DISABLE_FIND_PACKAGE_Sphinx=TRUE \
 %endif
 %if %{without dolphin}
 	-DCMAKE_DISABLE_FIND_PACKAGE_ECM=TRUE \
