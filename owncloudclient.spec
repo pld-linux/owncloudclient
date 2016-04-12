@@ -22,6 +22,7 @@ BuildRequires:	openssl-devel
 BuildRequires:	pkgconfig
 BuildRequires:	python-Sphinx
 BuildRequires:	sphinx-pdg
+BuildRequires:	sqlite3-devel
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	texlive-latex-ams
 BuildRequires:	xz
