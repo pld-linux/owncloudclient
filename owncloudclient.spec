@@ -74,13 +74,14 @@ Header files for %{name} library.
 Pliki nagłówkowe biblioteki %{name}.
 
 %package nautilus
-Summary:	A Nautilus extension for %{name}
+Summary:	Nautilus overlay icons
 Group:		Applications
 Requires:	%{name} = %{version}-%{release}
 Requires:	nautilus-python
 
 %description nautilus
-A %{name} extension to Nautilus file browser.
+This package provides overlay icons to visualize the sync state in the
+Nautilus file manager.
 
 %prep
 %setup -q
