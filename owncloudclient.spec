@@ -12,7 +12,7 @@
 Summary:	The ownCloud client
 Name:		owncloudclient
 Version:	2.1.1
-Release:	0.11
+Release:	0.12
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	https://download.owncloud.com/desktop/stable/%{name}-%{version}.tar.xz
@@ -71,6 +71,7 @@ requirements of your infrastructure and business.
 %package libs
 Summary:	Shared ownCloud client libraries
 Group:		Libraries
+Obsoletes:	mirall-libs < 1.8
 
 %description libs
 Shared ownCloud client libraries.
