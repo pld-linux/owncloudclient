@@ -1,6 +1,13 @@
 #
 # Conditional build:
-%bcond_without	nautilus		# build Nautilus extension
+%bcond_without	nautilus	# build Nautilus extension
+%bcond_without	doc		# build docs
+%bcond_without	gui		# build only libraries
+
+%if %{without gui}
+%undefine	with_nautilus
+%undefine	with_doc
+%endif
 
 Summary:	The ownCloud client
 Name:		owncloudclient
@@ -92,28 +99,34 @@ cd build
 %cmake \
 	-DQTKEYCHAIN_INCLUDE_DIR=/usr/include/qtkeychain \
 	-DQTKEYCHAIN_LIBRARY=/usr/%{_lib}/libqtkeychain.so \
+	%{!?with_gui:-DBUILD_LIBRARIES_ONLY=ON} \
 	..
 %{__make}
 
+%if %{with doc}
 # documentation here?
 if [ -e conf.py ]; then
 	# for old cmake versions we need to move the conf.py.
 	mv conf.py doc/
 fi
-
 %{__make} doc
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
 %{__make} -C build install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+%if %{with nautilus}
 # nemo not in pld
 %{__rm} $RPM_BUILD_ROOT%{_datadir}/nemo-python/extensions/syncstate.py*
+%endif
 
+%if %{with doc}
 mv $RPM_BUILD_ROOT%{_docdir}/html ${RPM_BUILD_ROOT}%{_docdir}/%{name}
 mv $RPM_BUILD_ROOT%{_docdir}/latex ${RPM_BUILD_ROOT}%{_docdir}/%{name}
 rm $RPM_BUILD_ROOT%{_docdir}/%{name}/unthemed/.buildinfo
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -129,6 +142,7 @@ fi
 %post	libs -p /sbin/ldconfig
 %postun	libs -p /sbin/ldconfig
 
+%if %{with gui}
 %files
 %defattr(644,root,root,755)
 %doc README.md COPYING
@@ -139,9 +153,10 @@ fi
 %{_desktopdir}/owncloud.desktop
 %{_iconsdir}/*/*/apps/*.png
 %{_datadir}/owncloud
-#%{_libdir}/owncloud/libocsync.so.*
+%{_libdir}/owncloud/libocsync.so.*
 %dir %{_libdir}/owncloud
 %{_mandir}/man1/owncloud*
+%endif
 
 %files libs
 %defattr(644,root,root,755)
