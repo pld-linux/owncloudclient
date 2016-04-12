@@ -1,3 +1,7 @@
+#
+# Conditional build:
+%bcond_without	nautilus		# build Nautilus extension
+
 Summary:	The ownCloud client
 Name:		owncloudclient
 Version:	2.1.1
@@ -69,6 +73,15 @@ Header files for %{name} library.
 %description devel -l pl.UTF-8
 Pliki nagłówkowe biblioteki %{name}.
 
+%package nautilus
+Summary:	A Nautilus extension for %{name}
+Group:		Applications
+Requires:	%{name} = %{version}-%{release}
+Requires:	nautilus-python
+
+%description nautilus
+A %{name} extension to Nautilus file browser.
+
 %prep
 %setup -q
 
@@ -93,6 +106,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 %{__make} -C build install \
 	DESTDIR=$RPM_BUILD_ROOT
+
+# nemo not in pld
+%{__rm} $RPM_BUILD_ROOT%{_datadir}/nemo-python/extensions/syncstate.py*
 
 mv $RPM_BUILD_ROOT%{_docdir}/html ${RPM_BUILD_ROOT}%{_docdir}/%{name}
 mv $RPM_BUILD_ROOT%{_docdir}/latex ${RPM_BUILD_ROOT}%{_docdir}/%{name}
@@ -126,10 +142,6 @@ fi
 %dir %{_libdir}/owncloud
 %{_mandir}/man1/owncloud*
 
-# subpackages
-%{_datadir}/nautilus-python/extensions/syncstate.py*
-%{_datadir}/nemo-python/extensions/syncstate.py*
-
 %files libs
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libowncloudsync.so.*.*.*
@@ -142,3 +154,9 @@ fi
 %{_includedir}/owncloudsync
 %{_libdir}/libowncloudsync.so
 %{_libdir}/owncloud/libocsync.so
+
+%if %{with nautilus}
+%files nautilus
+%defattr(644,root,root,755)
+%{_datadir}/nautilus-python/extensions/syncstate.py*
+%endif
