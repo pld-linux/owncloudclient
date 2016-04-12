@@ -1,3 +1,5 @@
+# TODO
+# - kf5 >= 5.16
 #
 # Conditional build:
 %bcond_without	nautilus	# build Nautilus extension
@@ -12,7 +14,7 @@
 Summary:	The ownCloud client
 Name:		owncloudclient
 Version:	2.1.1
-Release:	0.14
+Release:	0.15
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	https://download.owncloud.com/desktop/stable/%{name}-%{version}.tar.xz
@@ -27,22 +29,26 @@ BuildRequires:	QtSql-devel
 BuildRequires:	QtWebKit-devel
 BuildRequires:	QtXmlPatterns-devel
 BuildRequires:	cmake >= 2.8.11
+BuildRequires:	kf5-kconfig-devel
 BuildRequires:	kf5-ki18n-devel
 BuildRequires:	libstdc++-devel
-BuildRequires:	openssl-devel
+BuildRequires:	openssl-devel >= 1.0.0
 BuildRequires:	pkgconfig
-BuildRequires:	python
-BuildRequires:	python-Sphinx
-BuildRequires:	python-modules
 BuildRequires:	qt4-linguist
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.596
-BuildRequires:	sphinx-pdg
-BuildRequires:	sqlite3-devel
+BuildRequires:	sqlite3-devel >= 3.8.0
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 %if %{with doc}
+BuildRequires:	doxygen
+BuildRequires:	sphinx-pdg-2
+BuildRequires:	texlive-format-pdflatex
 BuildRequires:	texlive-latex-ams
+BuildRequires:	texlive-makeindex
+BuildRequires:	texlive-pdftex
+BuildRequires:	texlive-plain
+BuildRequires:	texlive-xetex
 %endif
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	Qt5Gui-platform-xcb
@@ -55,8 +61,6 @@ Obsoletes:	mirall < 1.8
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-The ownCloud sync client - github.com/owncloud/client
-
 ownCloud client enables you to connect to your private ownCloud
 Server. With it you can create folders in your home directory, and
 keep the contents of those folders synced with your ownCloud server.
@@ -92,6 +96,20 @@ Header files for %{name} library.
 %description devel -l pl.UTF-8
 Pliki nagłówkowe biblioteki %{name}.
 
+%package apidocs
+Summary:	%{name} API documentation
+Summary(pl.UTF-8):	Dokumentacja API biblioteki %{name}
+Group:		Documentation
+%if "%{_rpmversion}" >= "5"
+BuildArch:	noarch
+%endif
+
+%description apidocs
+API documentation for %{name} library.
+
+%description apidocs -l pl.UTF-8
+Dokumentacja API biblioteki %{name}.
+
 %package nautilus
 Summary:	Nautilus overlay icons
 Group:		Applications
@@ -112,17 +130,23 @@ cd build
 	-DQTKEYCHAIN_INCLUDE_DIR=/usr/include/qtkeychain \
 	-DQTKEYCHAIN_LIBRARY=/usr/%{_lib}/libqtkeychain.so \
 	-DQT_LRELEASE_EXECUTABLE=/usr/bin/lrelease-qt4 \
+%if %{with doc}
+	-DSPHINX_EXECUTABLE=/usr/bin/sphinx-build-2 \
+	-DPDFLATEX_EXECUTABLE=/usr/bin/pdflatex \
+	-DDOXYGEN_EXECUTABLE=/usr/bin/doxygen \
+	-DCMAKE_INSTALL_DOCDIR=%{_docdir}/%{name} \
+%else
+	-DWITH_DOC=NO \
+	-DSPHINX_FOUND=NO \
+	-DDOXYGEN_FOUND=NO \
+%endif
 	%{!?with_gui:-DBUILD_LIBRARIES_ONLY=ON} \
 	..
 %{__make}
 
 %if %{with doc}
-# documentation here?
-if [ -e conf.py ]; then
-	# for old cmake versions we need to move the conf.py.
-	mv conf.py doc/
-fi
 %{__make} doc
+rm doc/html/unthemed/.buildinfo
 %endif
 
 %install
@@ -136,12 +160,6 @@ mv $RPM_BUILD_ROOT%{_libdir}/owncloud/libocsync.so* $RPM_BUILD_ROOT%{_libdir}
 %if %{with nautilus}
 # nemo not in pld
 %{__rm} $RPM_BUILD_ROOT%{_datadir}/nemo-python/extensions/syncstate.py*
-%endif
-
-%if %{with doc}
-mv $RPM_BUILD_ROOT%{_docdir}/html ${RPM_BUILD_ROOT}%{_docdir}/%{name}
-mv $RPM_BUILD_ROOT%{_docdir}/latex ${RPM_BUILD_ROOT}%{_docdir}/%{name}
-rm $RPM_BUILD_ROOT%{_docdir}/%{name}/unthemed/.buildinfo
 %endif
 
 %clean
@@ -171,8 +189,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/owncloud
 %dir %{_libdir}/owncloud
 %if %{with doc}
-%doc %{_docdir}/%{name}
-%{_mandir}/man1/owncloud*
+%{_mandir}/man1/owncloud.1*
+%{_mandir}/man1/owncloudcmd.1*
 %endif
 %endif
 
@@ -193,4 +211,10 @@ rm -rf $RPM_BUILD_ROOT
 %files nautilus
 %defattr(644,root,root,755)
 %{_datadir}/nautilus-python/extensions/syncstate.py*
+%endif
+
+%if %{with doc}
+%files apidocs
+%defattr(644,root,root,755)
+%doc %{_docdir}/%{name}
 %endif
