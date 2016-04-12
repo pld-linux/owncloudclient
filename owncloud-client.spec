@@ -1,11 +1,10 @@
 
-######		/home/users/blues/rpm/packages/../rpm-build-tools/rpm.groups: no such file
 Summary:	The ownCloud client
 Name:		owncloud-client
 Version:	2.1.1
 Release:	2.5
 License:	GPL-2.0+
-Group:		Productivity/Networking/Other
+Group:		X11/Applications
 URL:		https://www.owncloud.com
 Source0:	owncloudclient-%{version}.tar.bz2
 Source1:	owncloud.sh
