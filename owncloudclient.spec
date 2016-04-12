@@ -12,7 +12,7 @@
 Summary:	The ownCloud client
 Name:		owncloudclient
 Version:	2.1.1
-Release:	0.13
+Release:	0.14
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	https://download.owncloud.com/desktop/stable/%{name}-%{version}.tar.xz
@@ -130,6 +130,9 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} -C build install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+# owncloud client links without rpath
+mv $RPM_BUILD_ROOT%{_libdir}/owncloud/libocsync.so* $RPM_BUILD_ROOT%{_libdir}
+
 %if %{with nautilus}
 # nemo not in pld
 %{__rm} $RPM_BUILD_ROOT%{_datadir}/nemo-python/extensions/syncstate.py*
@@ -177,14 +180,14 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libowncloudsync.so.*.*.*
 %ghost %{_libdir}/libowncloudsync.so.0
-%attr(755,root,root) %{_libdir}/owncloud/libocsync.so.*.*.*
-%ghost %{_libdir}/owncloud/libocsync.so.0
+%attr(755,root,root) %{_libdir}/libocsync.so.*.*.*
+%ghost %{_libdir}/libocsync.so.0
 
 %files devel
 %defattr(644,root,root,755)
 %{_includedir}/owncloudsync
 %{_libdir}/libowncloudsync.so
-%{_libdir}/owncloud/libocsync.so
+%{_libdir}/libocsync.so
 
 %if %{with nautilus}
 %files nautilus
