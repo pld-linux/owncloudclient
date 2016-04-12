@@ -35,7 +35,9 @@ BuildRequires:	python-Sphinx
 BuildRequires:	sphinx-pdg
 BuildRequires:	sqlite3-devel
 BuildRequires:	tar >= 1:1.22
+%if %{with doc}
 BuildRequires:	texlive-latex-ams
+%endif
 BuildRequires:	xz
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	Qt5Gui-platform-xcb
