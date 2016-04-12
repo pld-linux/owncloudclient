@@ -15,18 +15,21 @@
 Summary:	The ownCloud client
 Name:		owncloudclient
 Version:	2.1.1
-Release:	0.16
+Release:	0.17
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	https://download.owncloud.com/desktop/stable/%{name}-%{version}.tar.xz
 # Source0-md5:	63a971158201a8dffe96a02c54b86819
+Patch0:		syslibs.patch
 URL:		https://www.owncloud.com/
 BuildRequires:	Qt5Concurrent-devel
 BuildRequires:	Qt5Core-devel >= %{qtver}
 BuildRequires:	Qt5DBus-devel >= %{qtver}
 BuildRequires:	Qt5Gui-devel >= %{qtver}
 BuildRequires:	Qt5Keychain-devel
+BuildRequires:	Qt5LockedFile-devel >= 2.4
 BuildRequires:	Qt5Network-devel >= %{qtver}
+BuildRequires:	Qt5SingleApplication-devel >= 2.6
 BuildRequires:	Qt5Sql-devel >= %{qtver}
 BuildRequires:	Qt5WebKit-devel >= %{qtver}
 BuildRequires:	Qt5Xml-devel >= %{qtver}
@@ -131,6 +134,10 @@ Nautilus file manager.
 
 %prep
 %setup -q
+%patch0 -p1
+
+rm -r src/3rdparty/qtlockedfile
+rm -r src/3rdparty/qtsingleapplication
 
 %build
 install -d build
