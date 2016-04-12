@@ -150,7 +150,8 @@ cd build
 	-DDOXYGEN_FOUND=NO \
 %endif
 %if %{without dolphin}
-	-DKF5_FOUND=NO \
+	-DCMAKE_DISABLE_FIND_PACKAGE_ECM=TRUE \
+	-DCMAKE_DISABLE_FIND_PACKAGE_KF5=TRUE \
 %endif
 	%{!?with_gui:-DBUILD_LIBRARIES_ONLY=ON} \
 	..
