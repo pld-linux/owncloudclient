@@ -2,7 +2,7 @@
 Summary:	The ownCloud client
 Name:		owncloudclient
 Version:	2.1.1
-Release:	0.2
+Release:	0.3
 License:	GPL-2.0+
 Group:		X11/Applications
 URL:		https://www.owncloud.com
@@ -21,8 +21,6 @@ BuildRequires:	texlive-latex-ams
 BuildRequires:	QtKeychain-devel
 Suggests:	%{name}-nautilus
 Suggests:	%{name}-nemo
-Requires:	%{name}-l10n
-Requires:	libowncloudsync0 = %{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
