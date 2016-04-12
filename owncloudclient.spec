@@ -7,10 +7,19 @@ Group:		X11/Applications
 Source0:	https://download.owncloud.com/desktop/stable/%{name}-%{version}.tar.xz
 # Source0-md5:	63a971158201a8dffe96a02c54b86819
 URL:		https://www.owncloud.com/
+BuildRequires:	QtCore-devel
+BuildRequires:	QtDBus-devel
+BuildRequires:	QtGui-devel
 BuildRequires:	QtKeychain-devel
+BuildRequires:	QtNetwork-devel
+BuildRequires:	QtSql-devel
+BuildRequires:	QtWebKit-devel
+BuildRequires:	QtXmlPatterns-devel
 BuildRequires:	cmake >= 2.8.11
 BuildRequires:	desktop-file-utils
+BuildRequires:	libstdc++-devel
 BuildRequires:	openssl-devel
+BuildRequires:	pkgconfig
 BuildRequires:	python-Sphinx
 BuildRequires:	sphinx-pdg
 BuildRequires:	tar >= 1:1.22
