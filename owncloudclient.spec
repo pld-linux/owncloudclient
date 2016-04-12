@@ -101,7 +101,7 @@ fi
 %attr(755,root,root) %{_bindir}/owncloudcmd
 %{_desktopdir}/owncloud.desktop
 %{_iconsdir}/*/*/apps/*.png
-#%{_datadir}/owncloud
+%{_datadir}/owncloud
 %{_libdir}/libowncloudsync.so.*
 %{_libdir}/owncloud/libocsync.so.*
 %dir %{_libdir}/owncloud
