@@ -19,7 +19,8 @@ BuildRequires:	python-Sphinx
 BuildRequires:	sphinx-pdg
 BuildRequires:	texlive-latex-ams
 Requires:	Qt5Gui-platform-xcb
-Requires:	mirall-libs
+# Obsoletes mirall and all it's subpackages
+#Requires:	mirall-libs
 Suggests:	%{name}-nautilus
 Suggests:	%{name}-nemo
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
