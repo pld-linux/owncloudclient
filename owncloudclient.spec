@@ -12,7 +12,7 @@
 Summary:	The ownCloud client
 Name:		owncloudclient
 Version:	2.1.1
-Release:	0.9
+Release:	0.10
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	https://download.owncloud.com/desktop/stable/%{name}-%{version}.tar.xz
@@ -47,6 +47,7 @@ Requires:	%{name}-libs = %{version}-%{release}
 Requires:	Qt5Gui-platform-xcb
 Suggests:	%{name}-nautilus
 Suggests:	%{name}-nemo
+Obsoletes:	mirall < 1.8
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
