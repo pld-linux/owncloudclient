@@ -22,28 +22,30 @@ Source0:	https://download.owncloud.com/desktop/stable/%{name}-%{version}.tar.xz
 # Source0-md5:	63a971158201a8dffe96a02c54b86819
 Patch0:		syslibs.patch
 URL:		https://www.owncloud.com/
-BuildRequires:	Qt5Concurrent-devel
+BuildRequires:	Qt5Concurrent-devel >= %{qtver}
 BuildRequires:	Qt5Core-devel >= %{qtver}
 BuildRequires:	Qt5DBus-devel >= %{qtver}
 BuildRequires:	Qt5Gui-devel >= %{qtver}
 BuildRequires:	Qt5Keychain-devel
-BuildRequires:	Qt5LockedFile-devel >= 2.4
 BuildRequires:	Qt5Network-devel >= %{qtver}
-BuildRequires:	Qt5SingleApplication-devel >= 2.6
-BuildRequires:	Qt5Sql-devel >= %{qtver}
 BuildRequires:	Qt5WebKit-devel >= %{qtver}
 BuildRequires:	Qt5Xml-devel >= %{qtver}
 BuildRequires:	cmake >= 2.8.11
 BuildRequires:	libstdc++-devel
 BuildRequires:	openssl-devel >= 1.0.0
 BuildRequires:	pkgconfig
-BuildRequires:	qt5-linguist >= %{qtver}
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.596
 BuildRequires:	sqlite3-devel >= 3.8.0
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 BuildRequires:	zlib-devel
+%if %{with gui}
+BuildRequires:	Qt5LockedFile-devel >= 2.4
+BuildRequires:	Qt5SingleApplication-devel >= 2.6
+BuildRequires:	Qt5Sql-devel >= %{qtver}
+BuildRequires:	qt5-linguist >= %{qtver}
+%endif
 %if %{with dolphin}
 BuildRequires:	kf5-attica-devel >= 5.16
 BuildRequires:	kf5-extra-cmake-modules >= 1.2.0
