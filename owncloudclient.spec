@@ -36,9 +36,6 @@ BuildRequires:	sphinx-pdg
 BuildRequires:	python-Sphinx
 BuildRequires:	sqlite3-devel
 BuildRequires:	update-desktop-files
-Requires:	%{qtprefix}qt5-qtbase
-Requires:	%{qtprefix}qt5-qtbase-gui
-Requires:	%{qtprefix}qt5-qtwebkit
 Suggests:	%{name}-nautilus
 Suggests:	%{name}-nemo
 Requires:	%{name}-l10n
