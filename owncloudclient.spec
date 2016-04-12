@@ -1,8 +1,7 @@
-
 Summary:	The ownCloud client
 Name:		owncloudclient
 Version:	2.1.1
-Release:	0.4
+Release:	0.9
 License:	GPL-2.0+
 Group:		X11/Applications
 URL:		https://www.owncloud.com
@@ -10,17 +9,17 @@ Source0:	https://download.owncloud.com/desktop/stable/%{name}-%{version}.tar.xz
 # Source0-md5:	63a971158201a8dffe96a02c54b86819
 #Source1:	owncloud.sh
 #Source2:	owncloudcmd.sh
+BuildRequires:	QtKeychain-devel
 BuildRequires:	cmake >= 2.8.11
-#BuildRequires:	qt4-devel >= 4.7
-#BuildRequires:	qtwebkit-devel >= 2.2
 BuildRequires:	desktop-file-utils
 BuildRequires:	openssl-devel
 BuildRequires:	python-Sphinx
+#BuildRequires:	qt4-devel >= 4.7
+#BuildRequires:	qtwebkit-devel >= 2.2
 BuildRequires:	sphinx-pdg
 BuildRequires:	texlive-latex-ams
-BuildRequires:	QtKeychain-devel
-Requires:	mirall-libs
 Requires:	Qt5Gui-platform-xcb
+Requires:	mirall-libs
 Suggests:	%{name}-nautilus
 Suggests:	%{name}-nemo
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -45,8 +44,6 @@ requirements of your infrastructure and business.
 
 %prep
 %setup -q
-# autostart_use_wrapper.diff
-#patch1 -p1
 
 %build
 install -d build
@@ -78,8 +75,6 @@ mv ${RPM_BUILD_ROOT}%{_docdir}/html ${RPM_BUILD_ROOT}%{_docdir}/%{name}
 mv ${RPM_BUILD_ROOT}%{_docdir}/latex ${RPM_BUILD_ROOT}%{_docdir}/%{name}
 rm ${RPM_BUILD_ROOT}%{_docdir}/%{name}/unthemed/.buildinfo
 
-#%find_lang owncloud
-
 %post
 /bin/%update_icon_cache_post hicolor &>/dev/null || :
 /sbin/ldconfig
@@ -92,7 +87,6 @@ fi
 /sbin/ldconfig
 
 %files
-#-n %{name}.lang
 %defattr(644,root,root,755)
 %doc README.md COPYING
 %doc %{_docdir}/%{name}
