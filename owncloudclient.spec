@@ -33,7 +33,6 @@ BuildRequires:	Qt5SingleApplication-devel >= 2.6
 BuildRequires:	Qt5Sql-devel >= %{qtver}
 BuildRequires:	Qt5WebKit-devel >= %{qtver}
 BuildRequires:	Qt5Xml-devel >= %{qtver}
-BuildRequires:	Qt5XmlPatterns-devel >= %{qtver}
 BuildRequires:	cmake >= 2.8.11
 BuildRequires:	libstdc++-devel
 BuildRequires:	openssl-devel >= 1.0.0
