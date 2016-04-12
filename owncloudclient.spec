@@ -27,11 +27,15 @@ BuildRequires:	QtSql-devel
 BuildRequires:	QtWebKit-devel
 BuildRequires:	QtXmlPatterns-devel
 BuildRequires:	cmake >= 2.8.11
-BuildRequires:	desktop-file-utils
+BuildRequires:	kf5-ki18n-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	openssl-devel
 BuildRequires:	pkgconfig
+BuildRequires:	python
 BuildRequires:	python-Sphinx
+BuildRequires:	python-modules
+BuildRequires:	qt4-linguist
+BuildRequires:	rpm-pythonprov
 BuildRequires:	sphinx-pdg
 BuildRequires:	sqlite3-devel
 BuildRequires:	tar >= 1:1.22
@@ -101,6 +105,7 @@ cd build
 %cmake \
 	-DQTKEYCHAIN_INCLUDE_DIR=/usr/include/qtkeychain \
 	-DQTKEYCHAIN_LIBRARY=/usr/%{_lib}/libqtkeychain.so \
+	-DQT_LRELEASE_EXECUTABLE=/usr/bin/lrelease-qt4 \
 	%{!?with_gui:-DBUILD_LIBRARIES_ONLY=ON} \
 	..
 %{__make}
