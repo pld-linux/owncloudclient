@@ -15,7 +15,7 @@
 Summary:	The ownCloud client
 Name:		owncloudclient
 Version:	2.1.1
-Release:	0.21
+Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	https://download.owncloud.com/desktop/stable/%{name}-%{version}.tar.xz
