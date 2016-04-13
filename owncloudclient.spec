@@ -66,6 +66,7 @@ BuildRequires:	texlive-xetex
 %endif
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	Qt5Gui-platform-xcb
+Requires:	Qt5SingleApplication >= 2.6.1-3
 Requires:	desktop-file-utils
 Requires:	gtk-update-icon-cache
 Requires:	hicolor-icon-theme
