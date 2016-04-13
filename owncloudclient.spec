@@ -15,7 +15,7 @@
 Summary:	The ownCloud client
 Name:		owncloudclient
 Version:	2.1.1
-Release:	0.17
+Release:	0.21
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	https://download.owncloud.com/desktop/stable/%{name}-%{version}.tar.xz
@@ -43,8 +43,9 @@ BuildRequires:	xz
 BuildRequires:	zlib-devel
 %if %{with gui}
 BuildRequires:	Qt5LockedFile-devel >= 2.4
-BuildRequires:	Qt5SingleApplication-devel >= 2.6
+BuildRequires:	Qt5SingleApplication-devel >= 2.6.1-3
 BuildRequires:	Qt5Sql-devel >= %{qtver}
+BuildConflicts:	QtLockedFile-devel
 %endif
 %if %{with dolphin}
 BuildRequires:	kf5-attica-devel >= 5.16
@@ -137,8 +138,8 @@ Nautilus file manager.
 %setup -q
 %patch0 -p1
 
-rm -r src/3rdparty/qtlockedfile
-rm -r src/3rdparty/qtsingleapplication
+mv src/3rdparty/qtlockedfile .
+mv src/3rdparty/qtsingleapplication .
 
 %build
 install -d build
