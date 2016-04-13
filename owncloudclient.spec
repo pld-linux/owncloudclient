@@ -34,6 +34,7 @@ BuildRequires:	cmake >= 2.8.11
 BuildRequires:	libstdc++-devel
 BuildRequires:	openssl-devel >= 1.0.0
 BuildRequires:	pkgconfig
+BuildRequires:	qt5-linguist >= %{qtver}
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.596
 BuildRequires:	sqlite3-devel >= 3.8.0
@@ -44,7 +45,6 @@ BuildRequires:	zlib-devel
 BuildRequires:	Qt5LockedFile-devel >= 2.4
 BuildRequires:	Qt5SingleApplication-devel >= 2.6
 BuildRequires:	Qt5Sql-devel >= %{qtver}
-BuildRequires:	qt5-linguist >= %{qtver}
 %endif
 %if %{with dolphin}
 BuildRequires:	kf5-attica-devel >= 5.16
@@ -203,8 +203,6 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc README.md COPYING
-%dir %{_sysconfdir}/ownCloud
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/ownCloud/*
 %attr(755,root,root) %{_bindir}/owncloud
 %attr(755,root,root) %{_bindir}/owncloudcmd
 %{_desktopdir}/owncloud.desktop
@@ -219,6 +217,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files libs
 %defattr(644,root,root,755)
+%dir %{_sysconfdir}/ownCloud
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/ownCloud/sync-exclude.lst
 %attr(755,root,root) %{_libdir}/libowncloudsync.so.*.*.*
 %ghost %{_libdir}/libowncloudsync.so.0
 %attr(755,root,root) %{_libdir}/libocsync.so.*.*.*
