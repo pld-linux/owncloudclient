@@ -1,12 +1,14 @@
 #
 # Conditional build:
 %bcond_without	nautilus	# build Nautilus extension
+%bcond_without	caja		# build caja extension
 %bcond_with	dolphin		# build dolphin extension
 %bcond_without	doc		# build docs
 %bcond_without	gui		# build only libraries
 
 %if %{without gui}
 %undefine	with_nautilus
+%undefine	with_caja
 %undefine	with_dolphin
 %undefine	with_doc
 %endif
@@ -14,12 +16,12 @@
 %define		qtver	5.4
 Summary:	The ownCloud client
 Name:		owncloudclient
-Version:	2.1.1
+Version:	2.3.2
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	https://download.owncloud.com/desktop/stable/%{name}-%{version}.tar.xz
-# Source0-md5:	63a971158201a8dffe96a02c54b86819
+# Source0-md5:	8ce2442fb0528f224e97166baee2bae1
 Patch0:		syslibs.patch
 URL:		https://www.owncloud.com/
 BuildRequires:	Qt5Concurrent-devel >= %{qtver}
@@ -135,6 +137,16 @@ Requires:	nautilus-python
 This package provides overlay icons to visualize the sync state in the
 Nautilus file manager.
 
+%package caja
+Summary:	Caja overlay icons
+Group:		Applications
+Requires:	%{name} = %{version}-%{release}
+Requires:	caja-python
+
+%description caja
+This package provides overlay icons to visualize the sync state in the
+Caja file manager.
+
 %prep
 %setup -q
 %patch0 -p1
@@ -184,7 +196,7 @@ mv $RPM_BUILD_ROOT%{_libdir}/owncloud/libocsync.so* $RPM_BUILD_ROOT%{_libdir}
 
 %if %{with nautilus}
 # nemo not in pld
-%{__rm} $RPM_BUILD_ROOT%{_datadir}/nemo-python/extensions/syncstate.py*
+%{__rm} $RPM_BUILD_ROOT%{_datadir}/nemo-python/extensions/syncstate-ownCloud.py*
 %endif
 
 %clean
@@ -235,7 +247,13 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with nautilus}
 %files nautilus
 %defattr(644,root,root,755)
-%{_datadir}/nautilus-python/extensions/syncstate.py*
+%{_datadir}/nautilus-python/extensions/syncstate-ownCloud.py*
+%endif
+
+%if %{with caja}
+%files caja
+%defattr(644,root,root,755)
+%{_datadir}/caja-python/extensions/syncstate-ownCloud.py*
 %endif
 
 %if %{with doc}
