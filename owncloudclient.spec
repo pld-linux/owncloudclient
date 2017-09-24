@@ -16,12 +16,12 @@
 %define		qtver	5.4
 Summary:	The ownCloud client
 Name:		owncloudclient
-Version:	2.3.2
+Version:	2.3.3
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	https://download.owncloud.com/desktop/stable/%{name}-%{version}.tar.xz
-# Source0-md5:	8ce2442fb0528f224e97166baee2bae1
+# Source0-md5:	bba20fc6f38e0b14f6ceb9ab432d1802
 Patch0:		syslibs.patch
 URL:		https://www.owncloud.com/
 BuildRequires:	Qt5Concurrent-devel >= %{qtver}
