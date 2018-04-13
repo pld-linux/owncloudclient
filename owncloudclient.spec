@@ -17,7 +17,7 @@
 Summary:	The ownCloud client
 Name:		owncloudclient
 Version:	2.3.3
-Release:	2
+Release:	3
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	https://download.owncloud.com/desktop/stable/%{name}-%{version}.tar.xz
@@ -179,16 +179,16 @@ cd build
 %endif
 	%{!?with_gui:-DBUILD_LIBRARIES_ONLY=ON} \
 	..
-%{__make}
+%{__make} -j1
 
 %if %{with doc}
-%{__make} doc
+%{__make} -j1 doc
 rm doc/html/unthemed/.buildinfo
 %endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%{__make} -C build install \
+%{__make} -j1 -C build install \
 	DESTDIR=$RPM_BUILD_ROOT
 
 # owncloud client links without rpath
