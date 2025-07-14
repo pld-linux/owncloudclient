@@ -147,7 +147,7 @@ Caja file manager.
 
 %prep
 %setup -q
-%patch0 -p1
+%patch -P0 -p1
 
 mv src/3rdparty/qtlockedfile .
 mv src/3rdparty/qtsingleapplication .
